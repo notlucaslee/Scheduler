@@ -8,13 +8,19 @@ const getAppointmentsForDay = (state, day) => {
   return appointmentsArray.map(id => state.appointments[id]);
 };
 
-const getInterview = (state, interview) => {
-  if (interview) {
-    interview.interviewer = state.interviewers[interview.interviewer];
-    return interview    
+const getInterviewersForDay = (state, day) => {
+  let interviewersArray = [];
+  for (let item of state.days) {
+    if (item.name === day) {
+      interviewersArray = item.interviewers;
+    }
   }
-  return null
+  return interviewersArray.map(id => state.interviewers[id]);
+};
+
+const getInterview = (state, interview) => {
+  return (interview ? {...interview, interviewer: state.interviewers[interview.interviewer]} : null);
 }
 
-export { getAppointmentsForDay, getInterview }
+export { getAppointmentsForDay, getInterviewersForDay, getInterview }
 
