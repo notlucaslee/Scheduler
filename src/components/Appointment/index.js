@@ -15,6 +15,7 @@ export default function Appointment(props) {
   const SAVING = "Saving";
   const DELETING = "Deleting"
   const CONFIRM = "Are you sure you would like to delete this meeting? This action cannot be undone.";
+  const EDIT = "EDIT";
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
@@ -44,6 +45,10 @@ export default function Appointment(props) {
     transition(SHOW);
   }
 
+  const handleEdit = () => {
+    transition(EDIT);
+  }
+
   return (
     <article className="appointment">
       <Header time={props.time}/>
@@ -53,8 +58,10 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={handleTrashCanClick}
+          onEdit={handleEdit}
       />)}  
       {mode === CREATE && <Form onCancel={() => back()} onSave={save} interviewers={props.interviewers}/>}
+      {mode === EDIT && <Form onCancel={() => back()} onSave={save} student={props.interview.student} interviewer={props.interview.interviewer.id} interviewers={props.interviewers}/>}
       {mode === SAVING && <Status message={SAVING}/>}
       {mode === DELETING && <Status message={DELETING}/>}
       {mode === CONFIRM && <Confirm message={CONFIRM} onConfirm={deleteAppointment} onCancel={handleCancel}/>}
