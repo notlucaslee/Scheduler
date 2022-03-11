@@ -6,12 +6,12 @@ export default function useVisualMode(initial) {
   let list;
 
   const transition = (value, replace = false) => {
-    console.log(value)
     setMode(value);
     list = history;
     if (replace) list.pop();
     list.push(value);
     setHistory(list);
+    console.log(list);
   };
 
   const back = () => {
