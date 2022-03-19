@@ -19,7 +19,6 @@ export default function useApplicationData() {
         item.spots += num;
       }
     }
-    console.log(days)
     return days;
   }
 
@@ -61,7 +60,10 @@ export default function useApplicationData() {
       setState(prev => ({...prev, days: updateSpots(state, state.day, 1)}))
     })
   }
-
+  /*
+  What's happening
+  Why is it async
+  */
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
